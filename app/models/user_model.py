@@ -1,5 +1,5 @@
 from flask_user import UserMixin
-from app import db, app
+from app import db
 
 
 class User(db.Model, UserMixin):
@@ -19,6 +19,8 @@ class User(db.Model, UserMixin):
 
     # Define the relationship to Role via UserRoles
     roles = db.relationship('Role', secondary='user_roles')
+    projects = db.relationship('Project', secondary='user_projects')
+
 
 # Define the Role data-model
 class Role(db.Model):

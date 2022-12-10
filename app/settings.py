@@ -18,11 +18,11 @@ class ConfigClass(object):
     MAIL_PORT = 465
     MAIL_USE_SSL = True
     MAIL_USE_TLS = False
-    MAIL_USERNAME = os.environ('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ('SENDGRID_API_KEY')
-    MAIL_DEFAULT_SENDER = os.environ('MAIL_DEFAULT_SENDER')
+    MAIL_USERNAME = os.environ['MAIL_USERNAME']
+    MAIL_PASSWORD = os.environ['SENDGRID_API_KEY']
+    MAIL_DEFAULT_SENDER = os.environ['MAIL_DEFAULT_SENDER']
 
-    SENDGRID_API_KEY=os.environ('SENDGRID_API_KEY')
+    SENDGRID_API_KEY=os.environ['SENDGRID_API_KEY']
 
     # Application settings
     APP_NAME = "Flask-User starter app"
@@ -66,7 +66,7 @@ class ConfigClass(object):
     
     USER_AFTER_LOGIN_ENDPOINT = 'main.login_redirect'
     USER_AFTER_LOGOUT_ENDPOINT = 'user.login'
-    USER_UNAUTHORIZED_ENDPOINT = 'error'
+    USER_UNAUTHORIZED_ENDPOINT = 'main.error_403'
     USER_AFTER_REGISTER_ENDPOINT = 'main.confirmation_page'
 
     ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')    

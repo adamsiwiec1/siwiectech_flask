@@ -1,8 +1,38 @@
 from datetime import datetime
 
 
-def initialize(db, user_manager, User, Role):
+def initialize_db(db, user_manager, User, Role, Project, Deliverable, Task, Incident):
+    db.create_all()
+    initialize_project_model(db, Project, Deliverable, Task, Incident)
+    initialize_user_model(db, user_manager, User, Role, Project)
     
+    
+def initialize_project_model(db, Project, Deliverable, Task, Incident):
+    if not Deliverable.query.filter(Deliverable.name == 'Initialize Database').first():
+        deliverable = Deliverable(name='Initialize Database')
+        db.session.add(deliverable)
+        db.session.commit()
+        
+    if not Task.query.filter(Task.name == 'Create Example Data for a Project').first():
+        task = Task(name='Create Example Data for a Project')
+        db.session.add(task)
+        db.session.commit()
+
+    if not Incident.query.filter(Incident.name == 'Oh no! The data didnt initialize').first():
+        incident = Incident(name='Oh no! The data didnt initialize')
+        db.session.add(incident)
+        db.session.commit()
+    
+    if not Project.query.filter(Project.name == 'Initializer Project').first():
+        project = Project(name='Initializer')
+        project.deliverables.append(Deliverable.query.filter(Deliverable.name == 'Initialize Database').first())
+        project.tasks.append(Task.query.filter(Task.name == 'Create Example Data for a Project').first())
+        project.incidents.append(Incident.query.filter(Incident.name == 'Oh no! The data didnt initialize').first())
+        db.session.add(project)
+        db.session.commit()
+    
+
+def initialize_user_model(db, user_manager, User, Role, Project):
     if not Role.query.filter(Role.name == 'admin').first():
         role = Role(name='admin')
         db.session.add(role)
@@ -27,7 +57,9 @@ def initialize(db, user_manager, User, Role):
             password=user_manager.hash_password('Password1'),
         )
         role = Role.query.filter_by(name='client').first()
+        project = Project.query.filter_by(name='Initializer').first()
         user.roles.append(role)
+        user.projects.append(project)
         db.session.add(user)
         db.session.commit()
 
@@ -42,4 +74,3 @@ def initialize(db, user_manager, User, Role):
         user.roles.append(role)
         db.session.add(user)
         db.session.commit()
-        

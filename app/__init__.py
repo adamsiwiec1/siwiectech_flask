@@ -6,22 +6,15 @@ from flask_user import current_user, login_required, roles_required, UserManager
 from app.controllers.main_controller import main_blueprint
 from app.controllers.client_controller import client_blueprint
 from app.settings import ConfigClass
-from app.database.db_initializer import initialize
+from app.database.db_initializer import initialize_db
 from flask_mail import Mail
 
-# Instantiate Flask extensions
 app = Flask(__name__)
 db = SQLAlchemy(app)
-babel = Babel(app)
-app.config.from_object(ConfigClass)
-from app.models.user_model import User, Role
-user_manager = UserManager(app, db, User)
-mail = Mail()
 
 def register_blueprints(app):
     app.register_blueprint(main_blueprint)
     app.register_blueprint(client_blueprint)
-
 
 def define_error_handlers(app):
     @app.errorhandler(403)
@@ -40,9 +33,14 @@ def define_error_handlers(app):
 
 def create_app():
     #  create all db tab;es
-    db.create_all()
+    babel = Babel(app)
+    app.config.from_object(ConfigClass)
+    from app.models.user_model import User, Role
+    user_manager = UserManager(app, db, User)
+    mail = Mail()
     #  initialize users
-    initialize(db, user_manager, User, Role)
+    from app.models.project_model import Project, Deliverable, Task, Incident
+    initialize_db(db, user_manager, User, Role, Project, Deliverable, Task, Incident)
     register_blueprints(app)
     define_error_handlers(app)
     return app, db
