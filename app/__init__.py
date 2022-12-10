@@ -2,12 +2,12 @@ import datetime
 from flask import Flask, request, render_template
 from flask_babelex import Babel
 from flask_sqlalchemy import SQLAlchemy
-from flask_user import current_user, login_required, roles_required, UserManager, UserMixin
+from flask_user import current_user, login_required, roles_required, UserMixin, UserManager
 from app.controllers.main_controller import main_blueprint
 from app.controllers.client_controller import client_blueprint
 from app.settings import ConfigClass
 from app.database.db_initializer import initialize_db
-from flask_mail import Mail
+from wtforms import validators
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
@@ -36,13 +36,13 @@ def create_app():
     babel = Babel(app)
     app.config.from_object(ConfigClass)
     from app.models.user_model import User, Role
-    user_manager = UserManager(app, db, User)
-    mail = Mail()
+    register_blueprints(app)
+    define_error_handlers(app)
+    from app.models.custom_form_models import CustomUserManager
+    user_manager = CustomUserManager(app, db, User)
     #  initialize users
     from app.models.project_model import Project, Deliverable, Task, Incident
     initialize_db(db, user_manager, User, Role, Project, Deliverable, Task, Incident)
-    register_blueprints(app)
-    define_error_handlers(app)
     return app, db
 
 

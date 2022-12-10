@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255, collation='NOCASE'), nullable=False, unique=True)
     email_confirmed_at = db.Column(db.DateTime())
     password = db.Column(db.String(255), nullable=False, server_default='')
+    country = db.Column(db.String(100), nullable=True)
 
     # User information
     first_name = db.Column(db.String(100, collation='NOCASE'), nullable=False, server_default='')

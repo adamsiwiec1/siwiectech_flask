@@ -1,0 +1,17 @@
+{% extends "layouts/base-fullscreen.html" %}
+{% block content %}
+    {% from "flask_user/_macros.html" import render_field, render_submit_field %}
+    <div class="auth-wrapper">
+        <div class="auth-content">
+            <div class="card">
+                <div class="card-body text-center">
+                    <form action="" method="POST" class="form" role="form">
+                        {{ form.hidden_tag() }}
+                        {{ render_field(form.email, tabindex=10) }}
+                        {{ render_submit_field(form.submit, tabindex=90) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
