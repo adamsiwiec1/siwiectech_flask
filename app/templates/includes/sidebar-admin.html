@@ -15,14 +15,14 @@
                 <li class="nav-item pcoded-menu-caption">
                     <label>User Management</label>
                 </li>
-                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" 
+                <li data-username="Admin Dashboard" 
                     class="nav-item {% if 'index' in segment %} active {% endif %}">
                     <a href="/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span
                             class="pcoded-mtext">Dashboard</span></a>
                 </li>
-                <li data-username="Profile Page" 
+                <li data-username="Invite User" 
                     class="nav-item {% if 'profile' in segment %} active {% endif %}">
-                    <a href="/profile" class="nav-link">
+                    <a href={{ url_for('user.invite_user') }} class="nav-link">
                         <span class="pcoded-micon"><i class="feather icon-user"></i></span>
                             <span class="pcoded-mtext">Invite User</span></a>
                 </li>                
@@ -34,9 +34,9 @@
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span
                             class="pcoded-mtext">Consulting</span></a>
                     <ul class="pcoded-submenu">
-                        <li class=""><a href="/projects" class="">Clients</a></li>
-                        <li class=""><a href="/tasks" class="">Deliverables</a></li>
-                        <li class=""><a href="/incidents" class="">Calendar</a></li>
+                        <li class=""><a href="/manage-clients" class="">Clients</a></li>
+                        <li class=""><a href="/manage-deliverables" class="">Deliverables</a></li>
+                        <li class=""><a href="/manage-client-calendar" class="">Calendar</a></li>
                     </ul>
                 </li>
                 <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
@@ -44,20 +44,20 @@
                 <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span
                         class="pcoded-mtext">Tutoring</span></a>
                 <ul class="pcoded-submenu">
-                    <li class=""><a href="/projects" class="">Students</a></li>
-                    <li class=""><a href="/tasks" class="">Appointments</a></li>
-                    <li class=""><a href="/incidents" class="">Calendar</a></li>
+                    <li class=""><a href="/manage-students" class="">Students</a></li>
+                    <li class=""><a href="/manage-student-apointments" class="">Appointments</a></li>
+                    <li class=""><a href="/manage-student-calendar" class="">Calendar</a></li>
                 </ul>
                 </li>
                 <li data-username="form elements advance componant validation masking wizard picker select"
                     class="nav-item {% if 'form_elements' in segment %} active {% endif %}">
-                    <a href="/payment" class="nav-link "><span class="pcoded-micon"><i
+                    <a href="/manage-billing" class="nav-link "><span class="pcoded-micon"><i
                             class="feather icon-file-text"></i></span><span
                             class="pcoded-mtext">Billing</span></a>
                 </li>
                 <li data-username="Table bootstrap datatable footable" 
                     class="nav-item {% if 'tbl_bootstrap' in segment %} active {% endif %}">
-                    <a href="/servers" class="nav-link "><span class="pcoded-micon"><i
+                    <a href="/manage-servers" class="nav-link "><span class="pcoded-micon"><i
                             class="feather icon-server"></i></span><span class="pcoded-mtext">Servers</span></a>
                 </li>      
             </ul>

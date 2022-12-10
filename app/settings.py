@@ -45,8 +45,9 @@ class ConfigClass(object):
     USER_ENABLE_CHANGE_PASSWORD = True  # Allow users to change their password
     USER_ENABLE_CONFIRM_EMAIL = True  # Force users to confirm their email
     USER_ENABLE_FORGOT_PASSWORD = True  # Allow users to reset their passwords
-    USER_ENABLE_INVITE_USER = False
-
+    USER_ENABLE_INVITE_USER = True
+    USER_INVITE_EXPIRATION = 90*24*3600 
+    USER_INVITE_TEMPLATE = 'user/invite_user.html'
     
     
     USER_ENABLE_REGISTER = True  # Allow new users to register

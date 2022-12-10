@@ -1,10 +1,6 @@
 {% extends "layouts/base-fullscreen.html" %}
 {% block content %}
   {% from "flask_user/_macros.html" import render_field, render_submit_field %}
-  <div class="auth-wrapper">
-    <div class="auth-content">
-        <div class="card">
-            <div class="card-body text-center">
 
                 <div class="mb-4">
                     <i class="feather icon-unlock auth-icon"></i>
@@ -12,8 +8,4 @@
                 <h3 class="mb-4">Thank you for registering!</h3>
                 <p class="mb-4">Please check your email and click on the link to confirm your email address.</p>
                 <a class="btn btn-primary shadow-2 mb-4" href={{ url_for('user.resend_email_confirmation') }}> Resend confirmation email<a/>
-        </div>
-      </div>
-    </div>
-  </div>
 {% endblock %}

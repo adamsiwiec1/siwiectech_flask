@@ -29,22 +29,3 @@ def admin_page():
 @login_required
 def client_page():
     return render_template('views/client/client_page.html')
-
-
-@main_blueprint.route('/profile')
-@roles_required('admin')
-def profile_page():
-    return render_template('views/shared/profile.html')
-
-
-@main_blueprint.route('/unauthorized-error')
-def error_403():
-    return render_template('error/page-403.html')
-
-@main_blueprint.route('/not-found-error')
-def error_404():
-    return render_template('error/page-404.html')
-
-@main_blueprint.route('/unknown-error')
-def error_500():
-    return render_template('error/page-500.html')

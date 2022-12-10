@@ -1,12 +1,8 @@
-{% extends "layouts/base-fullscreen.html" %}
+{% extends "layouts/authentication.html" %}
 
 {% block content %}
 {% from "flask_user/_macros.html" import render_field, render_checkbox_field, render_submit_field %}
 
-<div class="auth-wrapper">
-    <div class="auth-content">
-        <div class="card">
-            <div class="card-body text-center">
                 <h3 class="mb-4">Login</h3>
 
                 
@@ -76,8 +72,4 @@
                     {%trans%}Forgot your Password?{%endtrans%}</a>
             {% endif %}</p>
 
-        </div>
-    </div>
-</div>
-</div>
 {% endblock %}

@@ -1,5 +1,5 @@
-from flask_user.forms import ResendEmailConfirmationForm
-from wtforms import SubmitField, StringField
+from flask_user.forms import ResendEmailConfirmationForm, InviteUserForm, unique_email_validator
+from wtforms import SubmitField, StringField, HiddenField
 from flask_user import UserManager
 from wtforms import validators
 from flask_user.translation_utils import lazy_gettext as _    # map _() to lazy_gettext()
@@ -16,9 +16,21 @@ class CustomResendEmailConfirmationForm(ResendEmailConfirmationForm):
         ])
     submit = SubmitField(_('Resend email confirmation email'))
     
+    
+class CustomInviteUserForm(InviteUserForm):
+    """Invite new user form."""
+    email_new = StringField(_('Email New'), validators=[
+        validators.DataRequired(_('Email is required')),
+        validators.Email(_('Invalid Email')),
+        unique_email_validator])
+    next = HiddenField()
+    submit = SubmitField(_('Invite!'))
+    
+    
 class CustomUserManager(UserManager):
 
     def customize(self, app):
 
         # Configure customized forms
         self.ResendEmailConfirmationFormClass = CustomResendEmailConfirmationForm
+        self.InviteUserFormClass = CustomInviteUserForm

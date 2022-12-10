@@ -35,4 +35,10 @@ class UserRoles(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
     role_id = db.Column(db.Integer(), db.ForeignKey('roles.id', ondelete='CASCADE'))
-    
+
+
+class UserInvitation(db.Model):
+    __tablename__ = 'user_invitations'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255, collation='NOCASE'), nullable=False, unique=True)
+    invited_by_user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
