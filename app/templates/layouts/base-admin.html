@@ -3,9 +3,8 @@
     {% include "includes/header.html" %}
     <body>
         {% include "includes/preloader.html" %}
-        {% include "includes/sidebar-admin.html" %}
         {% include "includes/navigation.html" %}
-
+        {% include "includes/sidebar/sidebar-admin.html" %}
         <div class="pcoded-main-container">
             <div class="pcoded-wrapper">
                 <div class="pcoded-content">
@@ -21,7 +20,6 @@
             </div>
         </div>
         {% include "includes/scripts.html" %}
-        <!-- Specific Page JS goes HERE  -->
         {% block javascripts %}
         {% endblock javascripts %}
     </body>

@@ -6,6 +6,7 @@ from flask_user import current_user, login_required, roles_required, UserMixin, 
 from app.controllers.main_controller import main_blueprint
 from app.controllers.client_controller import client_blueprint
 from app.controllers.admin_controller import admin_blueprint
+from app.controllers.student_controller import student_blueprint
 from app.settings import ConfigClass
 from app.database.db_initializer import initialize_db
 from wtforms import validators
@@ -17,6 +18,8 @@ def register_blueprints(app):
     app.register_blueprint(main_blueprint)
     app.register_blueprint(client_blueprint)
     app.register_blueprint(admin_blueprint)
+    app.register_blueprint(student_blueprint)
+
 
 def define_error_handlers(app):
     @app.errorhandler(403)

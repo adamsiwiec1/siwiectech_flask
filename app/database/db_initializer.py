@@ -63,6 +63,19 @@ def initialize_user_model(db, user_manager, User, Role, Project):
         db.session.add(user)
         db.session.commit()
 
+
+    # remove for production
+    if not User.query.filter(User.email == 'student@example.com').first():
+        user = User(
+            email='student@example.com',
+            email_confirmed_at=datetime.utcnow(),
+            password=user_manager.hash_password('Password1'),
+        )
+        role = Role.query.filter_by(name='student').first()
+        user.roles.append(role)
+        db.session.add(user)
+        db.session.commit()
+
     # remove for production
     if not User.query.filter(User.email == 'admin@example.com').first():
         user = User(

@@ -39,7 +39,8 @@ def payment_page():
 def servers_page():
     return render_template('views/client/servers.html')
 
-@client_blueprint.route('/profile')
+
+@client_blueprint.route('/client-schedule-meeting')
 @roles_required('client')
-def profile_page():
-    return render_template('views/client/profile.html')
+def schedule_meeting():
+    return render_template('views/client/schedule-meeting.html')

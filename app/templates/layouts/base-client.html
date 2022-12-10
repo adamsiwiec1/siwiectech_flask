@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
     {% include "includes/header.html" %}
-<body>
-
-    <!-- [ Pre-loader ] start -->
-    <div class="loader-bg">
-        <div class="loader-track">
-            <div class="loader-fill"></div>
-        </div>
-    </div>
-    <!-- [ Pre-loader ] End -->
-    {% include "includes/sidebar-client.html" %} 
-
-    {% include "includes/navigation.html" %}
-
-    {% include "includes/sidebar-client.html" %}
-    <div class="pcoded-main-container">
-        <div class="pcoded-wrapper">
-            <div class="pcoded-content">
-                <div class="pcoded-inner-content">
-                    <div class="main-body">
-                        <div class="page-wrapper">
-                            {% block content %}
-                            {% endblock content %}
+    <body>
+        {% include "includes/preloader.html" %}
+        {% include "includes/navigation.html" %}
+        {% include "includes/sidebar/sidebar-client.html" %}
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                {% block content %}
+                                {% endblock content %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {% include "includes/scripts.html" %}
-    <!-- Specific Page JS goes HERE  -->
-    {% block javascripts %}{% endblock javascripts %}
-
-</body>
+        {% include "includes/scripts.html" %}
+        {% block javascripts %}
+        {% endblock javascripts %}
+    </body>
 </html>
