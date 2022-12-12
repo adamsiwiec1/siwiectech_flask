@@ -4,6 +4,10 @@ from flask import render_template, redirect, url_for, Blueprint
 client_blueprint = Blueprint('client', __name__, template_folder='templates')
 
 
+@client_blueprint.route('/client-profile')
+@roles_required('client')
+def profile_meeting():
+    return render_template('views/client/client-profile.html')
 
 @client_blueprint.route('/projects')
 @roles_required('client')

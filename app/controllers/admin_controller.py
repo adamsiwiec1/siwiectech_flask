@@ -18,13 +18,6 @@ def manage_client_projects():
     return render_template('views/admin/manage-deliverables.html')
 
 
-@admin_blueprint.route('/manage-client-calendar')
-@roles_required('admin')
-@login_required
-def manage_client_calendar():
-    return render_template('views/admin/manage-client-calendar.html')
-
-
 @admin_blueprint.route('/manage-students')
 @roles_required('admin')
 @login_required
@@ -38,17 +31,17 @@ def manage_students():
 def manage_student_apointments():
     return render_template('views/admin/manage-student-apointments.html')
 
-@admin_blueprint.route('/manage-student-calendar')
+@admin_blueprint.route('/manage-calendar')
 @roles_required('admin')
 @login_required
-def manage_student_calendar():
-    return render_template('views/admin/manage-student-calendar.html')
+def manage_calendar():
+    return render_template('views/admin/manage-calendar.html')
 
 @admin_blueprint.route('/manage-billing')
 @roles_required('admin')
 @login_required
 def manage_billing():
-    return render_template('views/admin/manage-billing.html')
+    return render_template('views/shared/payment.html')
 
 @admin_blueprint.route('/manage-servers')
 @roles_required('admin')

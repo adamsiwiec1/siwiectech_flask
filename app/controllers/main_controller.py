@@ -44,8 +44,11 @@ def student_page():
 @main_blueprint.route('/profile')
 @login_required
 def profile_page():
-    return render_template('views/shared/profile.html')
-
+    if current_user.has_roles("student"):
+        return redirect(url_for('student.profile'))
+    if current_user.has_roles("client"):
+        return redirect(url_for('client.profile'))
+    abort(403)
 
 @main_blueprint.route('/403')
 @login_required

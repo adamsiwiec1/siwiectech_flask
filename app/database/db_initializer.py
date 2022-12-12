@@ -51,39 +51,39 @@ def initialize_user_model(db, user_manager, User, Role, Project):
     
     # remove for production
     if not User.query.filter(User.email == 'client@example.com').first():
-        user = User(
+        user1 = User(
             email='client@example.com',
             email_confirmed_at=datetime.utcnow(),
             password=user_manager.hash_password('Password1'),
         )
-        role = Role.query.filter_by(name='client').first()
+        role1 = Role.query.filter_by(name='client').first()
         project = Project.query.filter_by(name='Initializer').first()
-        user.roles.append(role)
-        user.projects.append(project)
-        db.session.add(user)
+        user1.roles.append(role1)
+        user1.projects.append(project)
+        db.session.add(user1)
         db.session.commit()
 
 
     # remove for production
     if not User.query.filter(User.email == 'student@example.com').first():
-        user = User(
+        user2 = User(
             email='student@example.com',
             email_confirmed_at=datetime.utcnow(),
             password=user_manager.hash_password('Password1'),
         )
-        role = Role.query.filter_by(name='student').first()
-        user.roles.append(role)
-        db.session.add(user)
+        role2 = Role.query.filter_by(name='student').first()
+        user2.roles.append(role2)
+        db.session.add(user2)
         db.session.commit()
 
     # remove for production
     if not User.query.filter(User.email == 'admin@example.com').first():
-        user = User(
+        user3 = User(
             email='admin@example.com',
             email_confirmed_at=datetime.utcnow(),
             password=user_manager.hash_password('Password1'),
         )
-        role = Role.query.filter_by(name='admin').first()
-        user.roles.append(role)
-        db.session.add(user)
+        role3 = Role.query.filter_by(name='admin').first()
+        user3.roles.append(role3)
+        db.session.add(user3)
         db.session.commit()
