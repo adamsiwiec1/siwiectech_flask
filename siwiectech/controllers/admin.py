@@ -1,5 +1,6 @@
 from flask_user import roles_required, login_required
 from flask import render_template, Blueprint
+from siwiectech.models import user as user_model
 
 blueprint = Blueprint('admin', __name__, template_folder='templates')
 
@@ -8,8 +9,8 @@ blueprint = Blueprint('admin', __name__, template_folder='templates')
 @roles_required('admin')
 @login_required
 def manage_clients():    
-    
-    return render_template('views/admin/manage-clients.html')
+    users = user_model.User.query.all()
+    return render_template('views/admin/manage-clients.html', data=users)
 
 
 @blueprint.route('/manage-deliverables')

@@ -23,12 +23,8 @@ def create_app(config_object="siwiectech.settings.ConfigClass"):
     register_blueprints(app)
     register_errorhandlers(app)
     um = models.user
-    cfm = models.forms
-    pm = models.project
-    tm = models.tutoring
-    
-    user_manager = cfm.CustomUserManager(app, db, um.User, UserInvitationClass=um.UserInvitation)
-    database.db_initializer.initialize_db(app, db, user_manager, um.User, um.Role, pm.Project, pm.Deliverable, pm.Task, pm.Incident)
+    user_manager = models.forms.CustomUserManager(app, db, um.User, UserInvitationClass=um.UserInvitation)
+    database.db_initializer.initialize_db(app, db, user_manager, um, models.project, models.tutoring)
     return app
 
 

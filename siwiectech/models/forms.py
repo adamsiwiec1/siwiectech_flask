@@ -9,7 +9,6 @@ from flask_user.translation_utils import lazy_gettext as _    # map _() to lazy_
 
 
 class CustomResendEmailConfirmationForm(ResendEmailConfirmationForm):
-    """Resend email confirmation form."""
     email = StringField(_('Enter your email address below.'), validators=[
         validators.DataRequired(_('Email address is required')),
         validators.Email(_('Invalid Email address')),
@@ -18,7 +17,6 @@ class CustomResendEmailConfirmationForm(ResendEmailConfirmationForm):
     
     
 class CustomInviteUserForm(InviteUserForm):
-    """Invite new user form."""
     email_new = StringField(_('Email New'), validators=[
         validators.DataRequired(_('Email is required')),
         validators.Email(_('Invalid Email')),
@@ -30,7 +28,5 @@ class CustomInviteUserForm(InviteUserForm):
 class CustomUserManager(UserManager):
 
     def customize(self, app):
-
-        # Configure customized forms
         self.ResendEmailConfirmationFormClass = CustomResendEmailConfirmationForm
         self.InviteUserFormClass = CustomInviteUserForm

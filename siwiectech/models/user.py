@@ -3,42 +3,51 @@ from siwiectech.extensions import db
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
-
-    # User authentication information. The collation='NOCASE' is required
-    # to search case insensitively when USER_IFIND_MODE is 'nocase_collation'.
     email = db.Column(db.String(255, collation='NOCASE'), nullable=False, unique=True)
     email_confirmed_at = db.Column(db.DateTime())
     password = db.Column(db.String(255), nullable=False, server_default='')
-    country = db.Column(db.String(100), nullable=True)
-
-    # User information
     first_name = db.Column(db.String(100, collation='NOCASE'), nullable=False, server_default='')
     last_name = db.Column(db.String(100, collation='NOCASE'), nullable=False, server_default='')
+    roles = db.relationship('Role', secondary='user_role')
+    user_type = db.Column(db.String(32), nullable=False)
+    __mapper_args__ = {'polymorphic_on': user_type}
 
-    # Define the relationship to Role via UserRoles
-    roles = db.relationship('Role', secondary='user_roles')
-    projects = db.relationship('Project', secondary='user_projects')
 
+class Consultant(User):
+    __tablename__ = 'consultant'
+    __mapper_args__ = {'polymorphic_identity': 'consultant'}
+    add_link_to_users = db.Column(db.String(50), nullable=True)
 
-# Define the Role data-model
+class Client(User):
+    __tablename__ = 'client'
+    __mapper_args__ = {'polymorphic_identity': 'client'}
+    projects = db.relationship('Project', secondary='user_project')
+    business_name = db.Column(db.String(50), nullable=True)
+
+class Student(User):
+    __tablename__ = 'student'
+    __mapper_args__ = {'polymorphic_identity': 'student'}
+    courses = db.relationship('Course', secondary='user_course')
+    school_name = db.Column(db.String(50), nullable=True)
+
 class Role(db.Model):
-    __tablename__ = 'roles'
+    __tablename__ = 'role'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(50), unique=True)
 
-# Define the UserRoles association table
+
 class UserRoles(db.Model):
-    __tablename__ = 'user_roles'
+    __tablename__ = 'user_role'
     id = db.Column(db.Integer(), primary_key=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
-    role_id = db.Column(db.Integer(), db.ForeignKey('roles.id', ondelete='CASCADE'))
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id', ondelete='CASCADE'))
+    role_id = db.Column(db.Integer(), db.ForeignKey('role.id', ondelete='CASCADE'))
 
 
 class UserInvitation(db.Model):
-    __tablename__ = 'user_invitations'
+    __tablename__ = 'user_invitation'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255, collation='NOCASE'), nullable=False, unique=True)
-    invited_by_user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
+    invited_by_user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))

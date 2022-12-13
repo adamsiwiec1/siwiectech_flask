@@ -12,19 +12,21 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>First Name</th>
+                                <th>Email</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
                             </tr>
                         </thead>
                         <tbody>
-
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
+                            {% for user in data %}
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>{{ user.email }}</td>
+                                    {% for role in user.roles %}
+                                        <td>{{ role.name }}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
