@@ -42,15 +42,13 @@ def admin_page():
 @blueprint.route('/client')
 @login_required
 def client_page():
-    return render_template('views/client/client_page.html')
+    return render_template('views/client/client-page.html')
 
 
 @blueprint.route('/student')
 @login_required
 def student_page():
-    return render_template('views/student/student_page.html')
-
-
+    return render_template('views/student/student-page.html')
 
 @blueprint.route('/403')
 @login_required
