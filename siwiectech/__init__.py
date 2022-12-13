@@ -22,17 +22,17 @@
 # # def define_error_handlers(app):
 # #     @app.errorhandler(403)
 # #     def access_forbidden(error):
-# #         return render_template('error/page-403.html'), 403
+# #         return render_template('error/403.html'), 403
 
 
 # #     @app.errorhandler(404)
 # #     def not_found_error(error):
-# #         return render_template('error/page-404.html'), 404
+# #         return render_template('error/403.html'), 404
 
 
 # #     @app.errorhandler(500)
 # #     def internal_error(error):
-# #         return render_template('error/page-500.html'), 500
+# #         return render_template('error/403.html'), 500
 
 # def create_app():
 #     from siwiectech.database.db_initializer import initialize_db

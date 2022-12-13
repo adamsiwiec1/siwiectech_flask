@@ -55,15 +55,15 @@ def student_page():
 @blueprint.route('/403')
 @login_required
 def error_403():
-    return render_template('error/page-403.html')
+    return render_template('error/403.html')
 
 @blueprint.route('/404')
 @login_required
 def error_404():
-    return render_template('error/page-404.html')
+    return render_template('error/403.html')
 
 
 @blueprint.route('/500')
 @login_required
 def error_500():
-    return render_template('error/page-500.html')
+    return render_template('error/403.html')
