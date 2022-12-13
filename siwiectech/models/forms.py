@@ -1,5 +1,5 @@
-from flask_user.forms import ResendEmailConfirmationForm, InviteUserForm, unique_email_validator
-from wtforms import SubmitField, StringField, HiddenField
+from flask_user.forms import ResendEmailConfirmationForm, InviteUserForm, RegisterForm, unique_email_validator
+from wtforms import SubmitField, StringField, HiddenField, RadioField
 from flask_user import UserManager
 from wtforms import validators
 from flask_user.translation_utils import lazy_gettext as _    # map _() to lazy_gettext()
@@ -24,9 +24,14 @@ class CustomInviteUserForm(InviteUserForm):
     next = HiddenField()
     submit = SubmitField(_('Invite!'))
     
+class CustomRegisterForm(RegisterForm):
+    user_type = RadioField(_('I am a...'), choices=[('student', 'Student'), ('tutor', 'Tutor')], validators=[
+        validators.DataRequired(_('User type is required'))])
+    
     
 class CustomUserManager(UserManager):
 
     def customize(self, app):
         self.ResendEmailConfirmationFormClass = CustomResendEmailConfirmationForm
         self.InviteUserFormClass = CustomInviteUserForm
+        self.RegisterFormClass = CustomRegisterForm

@@ -69,26 +69,26 @@ def initialize_user_model(db, user_manager, um, pm):
 
     # remove for production - replace with unit tests
     if not um.Student.query.filter(um.Student.email == 'student@example.com').first():
-        user2 = um.Student(
+        student = um.Student(
             email='student@example.com',
             email_confirmed_at=datetime.utcnow(),
             password=user_manager.hash_password('Password1'),
             user_type='student',
         )
         role2 = um.Role.query.filter_by(name='student').first()
-        user2.roles.append(role2)
-        db.session.add(user2)
+        student.roles.append(role2)
+        db.session.add(student)
         db.session.commit()
 
     # remove for production - replace with unit tests
     if not um.User.query.filter(um.User.email == 'admin@example.com').first():
-        user3 = um.User(
+        admin = um.User(
             email='admin@example.com',
             email_confirmed_at=datetime.utcnow(),
             password=user_manager.hash_password('Password1'),
             user_type='consultant',
         )
         role3 = um.Role.query.filter_by(name='admin').first()
-        user3.roles.append(role3)
-        db.session.add(user3)
+        admin.roles.append(role3)
+        db.session.add(admin)
         db.session.commit()

@@ -1,5 +1,11 @@
 {% extends "layouts/admin.html" %}
-{% block content %}<h2>Manage Clients</h2>
+{% block content %}
+
+<h3> Create a Client<h3/>
+
+
+<h3>Manage Current Clients</h3>
+
     <div class="col-xl-12">
         <div class="card">
             <div class="card-header">
@@ -11,20 +17,19 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
                                 <th>Email</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
+                                <th>Roles</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for user in data %}
+                            {% for client in data %}
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>{{ user.email }}</td>
-                                    {% for role in user.roles %}
-                                        <td>{{ role.name }}</td>
-                                    {% endfor %}
+                                    <th scope="row">{{ client.id }}</th>
+                                    <td>{{ client.email }}</td>
+                                    <td>{% for role in client.roles %}
+                                        {{ role.name }}
+                                    {% endfor %}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

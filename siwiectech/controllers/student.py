@@ -4,6 +4,9 @@ from flask import render_template, redirect, url_for, Blueprint
 blueprint = Blueprint('student', __name__, template_folder='templates')
 
 
+
+
+
 @blueprint.route('/student-profile')
 @roles_required('student')
 @login_required

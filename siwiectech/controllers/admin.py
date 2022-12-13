@@ -9,8 +9,8 @@ blueprint = Blueprint('admin', __name__, template_folder='templates')
 @roles_required('admin')
 @login_required
 def manage_clients():    
-    users = user_model.User.query.all()
-    return render_template('views/admin/manage-clients.html', data=users)
+    clients = user_model.Client.query.all()
+    return render_template('views/admin/manage-clients.html', data=clients)
 
 
 @blueprint.route('/manage-deliverables')
