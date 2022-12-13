@@ -1,5 +1,5 @@
 from flask_user import UserMixin
-from app import db
+from siwiectech.extensions import db
 
 
 class Project(db.Model, UserMixin):
@@ -12,21 +12,18 @@ class Project(db.Model, UserMixin):
     tasks = db.relationship('Task', secondary='project_tasks')
     incidents = db.relationship('Incident', secondary='project_incidents')
 
-# Define the Role data-model
 class Deliverable(db.Model):
     __tablename__ = 'deliverables'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(50), unique=True)
     description = db.Column(db.String(255))
 
-# Define the UserRoles association table
 class Task(db.Model):
     __tablename__ = 'task'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(50), unique=True)
     description = db.Column(db.String(255))
     
-# Define the UserRoles association table
 class Incident(db.Model):
     __tablename__ = 'incident'
     id = db.Column(db.Integer(), primary_key=True)

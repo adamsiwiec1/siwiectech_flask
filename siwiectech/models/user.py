@@ -1,5 +1,5 @@
 from flask_user import UserMixin
-from app import db
+from siwiectech.extensions import db
 
 
 class User(db.Model, UserMixin):

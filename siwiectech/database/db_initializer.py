@@ -1,10 +1,11 @@
 from datetime import datetime
 
 
-def initialize_db(db, user_manager, User, Role, Project, Deliverable, Task, Incident):
-    db.create_all()
-    initialize_project_model(db, Project, Deliverable, Task, Incident)
-    initialize_user_model(db, user_manager, User, Role, Project)
+def initialize_db(app, db, user_manager, User, Role, Project, Deliverable, Task, Incident):
+    with app.app_context():
+        db.create_all()
+        initialize_project_model(db, Project, Deliverable, Task, Incident)
+        initialize_user_model(db, user_manager, User, Role, Project)
     
     
 def initialize_project_model(db, Project, Deliverable, Task, Incident):
