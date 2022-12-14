@@ -21,7 +21,8 @@
                 class="form"
                 role="form">
             {{ form.hidden_tag() }}
-
+            {{ render_field(form.user_type, tabindex=220) }}
+            
             {# Username or Email #}
             {% set field = form.username if user_manager.USER_ENABLE_USERNAME else form.email %}
             <div class="form-group {% if field.errors %}has-error{% endif %}">
