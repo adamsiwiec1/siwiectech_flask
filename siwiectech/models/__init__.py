@@ -1,1 +1,1 @@
-from . import forms, project, tutoring, user
+from . import forms, project, student, user

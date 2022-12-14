@@ -1,7 +1,7 @@
 import logging
 import sys
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from siwiectech import models, controllers, database
 from siwiectech.extensions import (
@@ -25,7 +25,7 @@ def create_app(config_object="siwiectech.settings.ConfigClass"):
     register_signals(app)
     um = models.user
     user_manager = models.forms.CustomUserManager(app, db, um.User, UserInvitationClass=um.UserInvitation)
-    database.db_initializer.initialize_db(app, db, user_manager, um, models.project, models.tutoring)
+    database.db_initializer.initialize_db(app, db, user_manager, um, models.project, models.student)
     return app
 
 
@@ -67,7 +67,7 @@ def register_signals(app):
     with app.app_context():
         @user_registered.connect_via(app)
         def _after_registration_hook(sender, user, **extra):
-            role = models.user.Role.query.filter_by(name='student').one()
+            role = models.user.Role.query.filter_by(name=request.form.get('user_type')).one()
             user.roles.append(role)
             db.session.add(user)
             db.session.commit()

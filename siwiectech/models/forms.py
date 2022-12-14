@@ -17,15 +17,15 @@ class CustomResendEmailConfirmationForm(ResendEmailConfirmationForm):
     
     
 class CustomInviteUserForm(InviteUserForm):
-    email_new = StringField(_('Email New'), validators=[
+    email = StringField(_('Email New'), validators=[
         validators.DataRequired(_('Email is required')),
         validators.Email(_('Invalid Email')),
         unique_email_validator])
-    next = HiddenField()
-    submit = SubmitField(_('Invite!'))
+    # next = HiddenField()
+    # submit = SubmitField(_('Invite!'))
     
 class CustomRegisterForm(RegisterForm):
-    user_type = RadioField(_('I am a...'), choices=[('student', 'Student'), ('tutor', 'Tutor')], validators=[
+    user_type = RadioField(_('I am a...'), choices=[('student', 'Student'), ('client', 'Client')], validators=[
         validators.DataRequired(_('User type is required'))])
     
     
