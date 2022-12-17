@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include "includes/header.html" %}
+    <body>
+        {% include "includes/flash-inside.html" %}
+        {% include "includes/preloader.html" %}
+        {% include "includes/sidebar/sidebar-consultant.html" %}
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                {% block content %}
+                                {% endblock content %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include "includes/scripts.html" %}
+        {% block javascripts %}
+        {% endblock javascripts %}
+    </body>
+</html>

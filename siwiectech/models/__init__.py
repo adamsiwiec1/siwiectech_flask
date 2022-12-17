@@ -1,1 +1,1 @@
-from . import forms, project, student, user
+from . import client, forms, student, user

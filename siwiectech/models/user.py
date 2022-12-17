@@ -1,7 +1,6 @@
 from flask_user import UserMixin
 from siwiectech.extensions import db
 
-
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
@@ -15,6 +14,9 @@ class User(db.Model, UserMixin):
     user_type = db.Column(db.String(32), nullable=False)
     __mapper_args__ = {'polymorphic_on': user_type}
 
+class Admin(User):
+    __tablename__ = 'admin'
+    __mapper_args__ = {'polymorphic_identity': 'admin'}
 
 class Consultant(User):
     __tablename__ = 'consultant'
@@ -38,13 +40,11 @@ class Role(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(50), unique=True)
 
-
 class UserRoles(db.Model):
     __tablename__ = 'user_role'
     id = db.Column(db.Integer(), primary_key=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id', ondelete='CASCADE'))
     role_id = db.Column(db.Integer(), db.ForeignKey('role.id', ondelete='CASCADE'))
-
 
 class UserInvitation(db.Model):
     __tablename__ = 'user_invitation'

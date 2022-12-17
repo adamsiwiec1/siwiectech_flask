@@ -39,6 +39,11 @@ def initialize_user_model(db, user_manager, um, pm):
         role = um.Role(name='admin')
         db.session.add(role)
         db.session.commit()
+    
+    if not um.Role.query.filter(um.Role.name == 'consultant').first():
+        role = um.Role(name='consultant')
+        db.session.add(role)
+        db.session.commit()
 
     if not um.Role.query.filter(um.Role.name == 'client').first():
         role = um.Role(name='client')
@@ -49,8 +54,7 @@ def initialize_user_model(db, user_manager, um, pm):
         role = um.Role(name='student')
         db.session.add(role)
         db.session.commit()
-    
-    
+        
     # remove for production - replace with unit tests
     if not um.User.query.filter(um.User.email == 'client@example.com').first():
         client = um.Client(
@@ -59,13 +63,12 @@ def initialize_user_model(db, user_manager, um, pm):
             password=user_manager.hash_password('Password1'),
             user_type='client',
         )
-        role1 = um.Role.query.filter_by(name='client').first()
+        client_role = um.Role.query.filter_by(name='client').first()
         project = pm.Project.query.filter_by(name='Initializer').first()
-        client.roles.append(role1)
+        client.roles.append(client_role)
         client.projects.append(project)
         db.session.add(client)
         db.session.commit()
-
 
     # remove for production - replace with unit tests
     if not um.Student.query.filter(um.Student.email == 'student@example.com').first():
@@ -75,20 +78,33 @@ def initialize_user_model(db, user_manager, um, pm):
             password=user_manager.hash_password('Password1'),
             user_type='student',
         )
-        role2 = um.Role.query.filter_by(name='student').first()
-        student.roles.append(role2)
+        student_role = um.Role.query.filter_by(name='student').first()
+        student.roles.append(student_role)
         db.session.add(student)
         db.session.commit()
 
+    # remove for production - replace with unit tests
+    if not um.Consultant.query.filter(um.Consultant.email == 'consultant@example.com').first():
+        consultant = um.Consultant(
+            email='consultant@example.com',
+            email_confirmed_at=datetime.utcnow(),
+            password=user_manager.hash_password('Password1'),
+            user_type='consultant',
+        )
+        consultant_role = um.Role.query.filter_by(name='consultant').first()
+        consultant.roles.append(consultant_role)
+        db.session.add(consultant)
+        db.session.commit()
+            
     # remove for production - replace with unit tests
     if not um.User.query.filter(um.User.email == 'admin@example.com').first():
         admin = um.User(
             email='admin@example.com',
             email_confirmed_at=datetime.utcnow(),
             password=user_manager.hash_password('Password1'),
-            user_type='consultant',
+            user_type='admin',
         )
-        role3 = um.Role.query.filter_by(name='admin').first()
-        admin.roles.append(role3)
+        admin_role = um.Role.query.filter_by(name='admin').first()
+        admin.roles.append(admin_role)
         db.session.add(admin)
         db.session.commit()

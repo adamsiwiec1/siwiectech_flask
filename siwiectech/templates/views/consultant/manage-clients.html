@@ -1,0 +1,41 @@
+{% extends "layouts/consultant.html" %}
+{% block content %}
+
+<h3> Create a Client<h3/>
+
+
+<h3>Manage Current Clients</h3>
+
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Hover Table</h5>
+                <span class="d-block m-t-5">use class <code>table-hover</code> inside table element</span>
+            </div>
+            <div class="card-block table-border-style">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Roles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for client in data %}
+                                <tr>
+                                    <th scope="row">{{ client.id }}</th>
+                                    <td>{{ client.email }}</td>
+                                    <td>{% for role in client.roles %}
+                                        {{ role.name }}
+                                    {% endfor %}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,4 +1,15 @@
+
+
+{% if 'admin' in current_user.roles %}
 {% extends "layouts/admin.html" %}
+
+{% endif %}
+
+{% if 'consultant' in current_user.roles %}
+
+{% extends "layouts/consultant.html" %}
+
+{% endif %}
 
 {% block content %}
 {% from "flask_user/_macros.html" import render_field, render_submit_field %}

@@ -12,12 +12,14 @@ def home_page():
 @blueprint.route('/login-redirect')
 @login_required
 def login_redirect():
-    if current_user.has_roles("admin"):
-        return redirect(url_for('main.admin_page'))
+    if current_user.has_roles("consultant"):
+        return redirect(url_for('main.consultant_page'))
     if current_user.has_roles("client"):
         return redirect(url_for('main.client_page'))
     if current_user.has_roles("student"):
         return redirect(url_for('main.student_page'))
+    if current_user.has_roles("admin"):
+        return redirect(url_for('main.admin_page'))
     abort(403)
 
 @blueprint.route('/profile')
@@ -37,6 +39,11 @@ def confirmation_page():
 @roles_required('admin')    
 def admin_page():
     return render_template('views/admin/admin-page.html')
+
+@blueprint.route('/consultant')
+@roles_required('consultant')    
+def consultant_page():
+    return render_template('views/consultant/consultant-page.html')
     
     
 @blueprint.route('/client')

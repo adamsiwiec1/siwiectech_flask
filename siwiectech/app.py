@@ -22,10 +22,10 @@ def create_app(config_object="siwiectech.settings.ConfigClass"):
     db = register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
-    register_signals(app)
+    register_hooks(app)
     um = models.user
     user_manager = models.forms.CustomUserManager(app, db, um.User, UserInvitationClass=um.UserInvitation)
-    database.db_initializer.initialize_db(app, db, user_manager, um, models.project, models.student)
+    database.db_initializer.initialize_db(app, db, user_manager, um, models.client, models.student)
     return app
 
 
@@ -44,6 +44,7 @@ def register_extensions(app):
 def register_blueprints(app):
     app.register_blueprint(controllers.main.blueprint)
     app.register_blueprint(controllers.admin.blueprint)
+    app.register_blueprint(controllers.consultant.blueprint)
     app.register_blueprint(controllers.client.blueprint)
     app.register_blueprint(controllers.student.blueprint)
     return None
@@ -61,7 +62,7 @@ def register_errorhandlers(app):
         return render_template('error/403.html'), 500
     
     
-def register_signals(app):
+def register_hooks(app):
     from flask_user.signals import user_registered
     from siwiectech.extensions import db
     with app.app_context():

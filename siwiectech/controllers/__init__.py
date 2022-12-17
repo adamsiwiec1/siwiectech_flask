@@ -1,1 +1,1 @@
-from . import admin, client, student, main
+from . import client, student, main, consultant, admin
