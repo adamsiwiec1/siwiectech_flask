@@ -48,6 +48,7 @@ class ConfigClass(object):
     USER_ENABLE_INVITE_USER = True
     USER_INVITE_EXPIRATION = 90*24*3600 
     USER_INVITE_TEMPLATE = 'user/invite_user.html'
+    USER_AFTER_INVITE_ENDPOINT = 'user.invite_user'
     
     
     USER_ENABLE_REGISTER = True  # Allow new users to register

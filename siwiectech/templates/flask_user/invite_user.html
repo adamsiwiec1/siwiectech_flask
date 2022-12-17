@@ -1,11 +1,7 @@
-
-
-{% if 'admin' in current_user.roles %}
+{% if 'admin' in data %}
 {% extends "layouts/admin.html" %}
 
-{% endif %}
-
-{% if 'consultant' in current_user.roles %}
+{% elif 'consultant' in data %}
 
 {% extends "layouts/consultant.html" %}
 

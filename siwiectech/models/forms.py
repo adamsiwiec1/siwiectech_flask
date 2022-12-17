@@ -77,7 +77,7 @@ class CustomUserManager(UserManager):
             # Redirect
             safe_next_url = self._get_safe_next_url('next', self.USER_AFTER_INVITE_ENDPOINT)
             return redirect(safe_next_url)
-
+        roles = [role.name for role in current_user.roles]
         self.prepare_domain_translations()
-        return render_template(self.USER_INVITE_USER_TEMPLATE, form=invite_user_form)
+        return render_template(self.USER_INVITE_USER_TEMPLATE, form=invite_user_form, data=roles)
 
