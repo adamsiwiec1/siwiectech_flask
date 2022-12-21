@@ -1,16 +1,11 @@
 {% extends "layouts/admin.html" %}
 {% block content %}
 
-<h3> Create a Client<h3/>
-
-
 <h3>Manage Current Clients</h3>
-
     <div class="col-xl-12">
         <div class="card">
             <div class="card-header">
-                <h5>Hover Table</h5>
-                <span class="d-block m-t-5">use class <code>table-hover</code> inside table element</span>
+                <h5>All Users</h5>
             </div>
             <div class="card-block table-border-style">
                 <div class="table-responsive">
@@ -20,6 +15,8 @@
                                 <th>ID</th>
                                 <th>Email</th>
                                 <th>Roles</th>
+                                <th>Balance</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,6 +27,19 @@
                                     <td>{% for role in client.roles %}
                                         {{ role.name }}
                                     {% endfor %}</td>
+                                    <td>
+                                        {{ client.account.balance }}
+                                    </td>
+                                    <td> 
+                                        <ul> 
+                                            <li>
+                                                <a href='/'> Edit user</a>
+                                            </li>
+                                            <li>
+                                            <a href='/'> Deactivate user</a>
+                                            </li>
+                                        </ul>  
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>

@@ -1,1 +1,1 @@
-from . import client, forms, student, user
+from . import consulting, forms, tutoring, accounting, user

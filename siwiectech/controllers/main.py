@@ -33,7 +33,7 @@ def profile_redirect():
 
 @blueprint.route('/confirmation')
 def confirmation_page():
-    return render_template('views/shared/confirmation.html')
+    return render_template('shared/confirmation.html')
 
 @blueprint.route('/admin')
 @roles_required('admin')    

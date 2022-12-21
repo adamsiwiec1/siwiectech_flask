@@ -25,7 +25,7 @@ def create_app(config_object="siwiectech.settings.ConfigClass"):
     register_hooks(app)
     um = models.user
     user_manager = models.forms.CustomUserManager(app, db, um.User, UserInvitationClass=um.UserInvitation)
-    database.db_initializer.initialize_db(app, db, user_manager, um, models.client, models.student)
+    database.db_initializer.initialize_db(app, db, user_manager, um, models.consulting, models.tutoring, models.accounting)
     return app
 
 

@@ -5,18 +5,19 @@ from siwiectech.models import user as user_model
 blueprint = Blueprint('admin', __name__, template_folder='templates')
 
 
-@blueprint.route('/admin/invite-user')
+@blueprint.route('/admin/create-user')
 @roles_required('admin')
 @login_required
-def invite_user():    
-    return render_template('views/admin/invite-user.html')
+def create_user():    
+    return render_template('views/admin/create-user.html')
 
-@blueprint.route('/admin/manage-clients')
+
+@blueprint.route('/admin/manage-users')
 @roles_required('admin')
 @login_required
-def manage_clients():    
-    clients = user_model.Client.query.all()
-    return render_template('views/admin/manage-clients.html', data=clients)
+def manage_users():    
+    users = user_model.User.query.all()
+    return render_template('views/admin/manage-users.html', data=users)
 
 
 @blueprint.route('/admin/manage-deliverables')
@@ -25,34 +26,8 @@ def manage_clients():
 def manage_client_projects():
     return render_template('views/admin/manage-deliverables.html')
 
-
-@blueprint.route('/admin/manage-students')
+@blueprint.route('/admin/accounting')
 @roles_required('admin')
 @login_required
-def manage_students():
-    return render_template('views/admin/manage-students.html')
-
-
-@blueprint.route('/admin/manage-student-apointments')
-@roles_required('admin')
-@login_required
-def manage_student_apointments():
-    return render_template('views/admin/manage-student-apointments.html')
-
-@blueprint.route('/admin/manage-calendar')
-@roles_required('admin')
-@login_required
-def manage_calendar():
-    return render_template('views/admin/manage-calendar.html')
-
-# @blueprint.route('/admin/manage-billing')
-# @roles_required('admin')
-# @login_required
-# def manage_billing():
-#     return render_template('views/shared/payment.html')
-
-@blueprint.route('/admin/manage-servers')
-@roles_required('admin')
-@login_required
-def manage_servers():
-    return render_template('views/admin/manage-servers.html')
+def manage_billing():
+    return render_template('views/admin/manage-billing.html')

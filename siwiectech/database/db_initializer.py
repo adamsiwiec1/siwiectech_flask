@@ -1,12 +1,12 @@
 from datetime import datetime
 
 
-def initialize_db(app, db, user_manager, user_model, project_model, tutoring_model):
+def initialize_db(app, db, user_manager, user_model, project_model, tutoring_model, accounting_model=None):
     with app.app_context():
         db.create_all()
         initialize_project_model(db, project_model)
-        initialize_user_model(db, user_manager, user_model, project_model)
-    
+        initialize_tutoring_model(db, tutoring_model)
+        initialize_user_model(db, user_manager, user_model, project_model, accounting_model)
     
 def initialize_project_model(db, pm):
     
@@ -32,9 +32,28 @@ def initialize_project_model(db, pm):
         project.incidents.append(pm.Incident.query.filter(pm.Incident.name == 'Oh no! The data didnt initialize').first())
         db.session.add(project)
         db.session.commit()
+        
+        
+def initialize_tutoring_model(db, tm):
+    if not tm.Course.query.filter(tm.Course.name == 'Math').first():
+        math_course = tm.Course(name='Math')
+        db.session.add(math_course)
+        db.session.commit()
+
+    if not tm.Course.query.filter(tm.Course.name == 'Coding').all():
+        coding_course = tm.Course(name='Coding')
+        db.session.add(coding_course)
+        db.session.commit()
+        
+    if len(tm.Course.query.filter(tm.Course.name == 'Math').first().assignments) <= 0:
+        assignment = tm.Assignment(name='Algebra stuff')
+        math_course = tm.Course.query.filter(tm.Course.name == 'Math').first()
+        math_course.assignments.append(assignment)
+        db.session.add(math_course)
+        db.session.commit()
     
 
-def initialize_user_model(db, user_manager, um, pm):
+def initialize_user_model(db, user_manager, um, pm, am):
     if not um.Role.query.filter(um.Role.name == 'admin').first():
         role = um.Role(name='admin')
         db.session.add(role)
@@ -67,6 +86,7 @@ def initialize_user_model(db, user_manager, um, pm):
         project = pm.Project.query.filter_by(name='Initializer').first()
         client.roles.append(client_role)
         client.projects.append(project)
+        client.account = am.Account(balance=0)
         db.session.add(client)
         db.session.commit()
 
@@ -80,6 +100,7 @@ def initialize_user_model(db, user_manager, um, pm):
         )
         student_role = um.Role.query.filter_by(name='student').first()
         student.roles.append(student_role)
+        student.account = am.Account(balance=0)
         db.session.add(student)
         db.session.commit()
 
@@ -93,12 +114,14 @@ def initialize_user_model(db, user_manager, um, pm):
         )
         consultant_role = um.Role.query.filter_by(name='consultant').first()
         consultant.roles.append(consultant_role)
+        consultant.clients.append(client)
+        consultant.students.append(student)
         db.session.add(consultant)
         db.session.commit()
             
     # remove for production - replace with unit tests
-    if not um.User.query.filter(um.User.email == 'admin@example.com').first():
-        admin = um.User(
+    if not um.Admin.query.filter(um.Admin.email == 'admin@example.com').first():
+        admin = um.Admin(
             email='admin@example.com',
             email_confirmed_at=datetime.utcnow(),
             password=user_manager.hash_password('Password1'),
